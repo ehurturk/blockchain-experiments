@@ -7,7 +7,7 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
   const Box = await ethers.getContractFactory("Token");
-  const box = await Box.attach("0x93ee8852d52E83390411684518E678884cb81bb9"); // emir token deployement adress
+  const box = await Box.attach("0x2a5192960fb908A8ee256CBF1CD89b363B401680"); // emir token deployement adress
   await box.deployed();
   const supply = await box.totalSupply();
   console.log("Emir Token deployed to:", box.address);

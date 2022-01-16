@@ -1,5 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 
+const { mnemonic, ropsten_key } = require("./secrets.json");
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -17,5 +19,36 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  defaultNetwork: "ropsten",
+  networks: {
+    hardhat: {},
+    ropsten: {
+      url: `https://eth-ropsten.alchemyapi.io/v2/_2vWIE4gFKKlLTbO4zgN_089y1eljtTu`,
+      accounts: [`${ropsten_key}`],
+    },
+    bsc_testnet: {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+      chainId: 97,
+      gasPrice: 20000000000,
+      accounts: { mnemonic: mnemonic },
+    },
+  },
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts",
+  },
+  mocha: {
+    timeout: 40000,
+  },
 };
